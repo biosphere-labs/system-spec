@@ -1,0 +1,12 @@
+# System Spec
+
+> An open format for a complete, implementation-neutral specification of a software system: existing standards (Cedar,
+> use cases with Gherkin, JSON Schema, Alloy, IFML, OpenAPI 3.1, AsyncAPI 3, SCXML, ISO 25010 scenarios, OpenSLO, ASVS,
+> WCAG, Open Threat Model, C4, MADR) combined in one bundle, with mechanical readiness rules.
+
+- [SPEC.md](SPEC.md): the normative specification
+- [AGENTS.md](AGENTS.md): how an agent writes or reviews a bundle
+- [schema/manifest.schema.json](schema/manifest.schema.json): the bundle manifest, with x-fill instructions on each field
+- [docs/tooling.md](docs/tooling.md): tools for each layer
+- [docs/extending.md](docs/extending.md): adding layers and formats
+- [template/](template/): an empty bundle

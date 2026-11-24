@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/biosphere-labs/system-spec/main/schema/engineering-principles.schema.json",
+  "title": "Engineering principles",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "constraints",
+    "crossCutting",
+    "codeQuality",
+    "testing",
+    "errorHandling",
+    "securityPractice",
+    "governance"
+  ],
+  "properties": {
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule"
+        ],
+        "properties": {
+          "rule": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          }
+        }
+      }
+    },
+    "crossCutting": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule"
+        ],
+        "properties": {
+          "rule": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          }
+        }
+      }
+    },
+    "codeQuality": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule"
+        ],
+        "properties": {
+          "rule": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          }
+        }
+      }
+    },
+    "testing": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule"
+        ],
+        "properties": {
+          "rule": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          }
+        }
+      }
+    },
+    "errorHandling": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule"
+        ],
+        "properties": {
+          "rule": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          }
+        }
+      }
+    },
+    "securityPractice": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule"
+        ],
+        "properties": {
+          "rule": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          }
+        }
+      }
+    },
+    "governance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule"
+        ],
+        "properties": {
+          "rule": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          }
+        }
+      }
+    }
+  }
+}

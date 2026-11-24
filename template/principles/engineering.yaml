@@ -1,0 +1,8 @@
+# schema/engineering-principles.schema.json
+constraints: []
+crossCutting: []
+codeQuality: []
+testing: []
+errorHandling: []
+securityPractice: []
+governance: []

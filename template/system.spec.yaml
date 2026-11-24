@@ -1,0 +1,25 @@
+# System Spec bundle manifest (schema/manifest.schema.json)
+specVersion: "0.1"
+system:
+  id: example-system
+  name: Example System
+  summary: One sentence saying what the system lets whom do.
+files:
+  - { path: product/context.yaml, layer: product, format: product-context }
+  - { path: principles/engineering.yaml, layer: principles, format: engineering-principles }
+  - { path: roles/schema.cedarschema, layer: roles, format: cedar-schema }
+  - { path: roles/policies.cedar, layer: roles, format: cedar-policies }
+  - { path: behaviour/use-cases/UC-1.yaml, layer: behaviour, format: use-case }
+  - { path: behaviour/features/UC-1.feature, layer: behaviour, format: gherkin }
+  - { path: behaviour/stories/ST-1.yaml, layer: behaviour, format: story }
+  - { path: domain/schemas/ENT-item.schema.json, layer: domain, format: json-schema-2020-12 }
+  - { path: domain/model.als, layer: domain, format: alloy-6 }
+  - { path: lifecycles/SM-item.scxml, layer: lifecycles, format: scxml-1.0 }
+  - { path: quality/scenarios/QS-1.yaml, layer: quality, format: quality-scenario }
+  - { path: safety/profile.yaml, layer: safety, format: safety-profile }
+  - { path: external/EXT-example.yaml, layer: external, format: external-system }
+  - { path: decisions/0001-example.md, layer: decisions, format: madr-4 }
+extensions: []
+openQuestions:
+  - question: Replace every placeholder in this template.
+    blocks: [UC-1]

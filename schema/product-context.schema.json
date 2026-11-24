@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/biosphere-labs/system-spec/main/schema/product-context.schema.json",
+  "title": "Product context (outline after ISO/IEC/IEEE 29148 stakeholder requirements)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "purpose",
+    "scope",
+    "category",
+    "stakeholders",
+    "users",
+    "environment",
+    "comparableProducts"
+  ],
+  "properties": {
+    "purpose": {
+      "type": "string",
+      "x-fill": {
+        "source": "requester material",
+        "method": "State the problem and why it is worth solving.",
+        "doneWhen": "Quotes or cites the requester."
+      }
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "in",
+        "out"
+      ],
+      "properties": {
+        "in": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "out": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "category": {
+      "type": "string",
+      "description": "Product category, for research into comparable products."
+    },
+    "stakeholders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "who",
+          "needs"
+        ],
+        "properties": {
+          "who": {
+            "type": "string"
+          },
+          "needs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "role",
+          "characteristics"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          },
+          "characteristics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "devices": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "environment": {
+      "type": "string",
+      "description": "Where and how the system is used."
+    },
+    "businessProcesses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "comparableProducts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "mustMatch"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "mustMatch": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mustBeat": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "x-fill": {
+        "source": "research",
+        "method": "Find the products users would compare this with; list what users expect from them.",
+        "dependsOn": [
+          "category"
+        ],
+        "doneWhen": "At least one product, each claim with evidence."
+      }
+    },
+    "differentiators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

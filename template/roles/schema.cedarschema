@@ -1,0 +1,4 @@
+// Cedar schema: every principal type and every action.
+entity User = { role: String };
+entity Item = { owner: User };
+action "ACT-view-item" appliesTo { principal: [User], resource: [Item] };

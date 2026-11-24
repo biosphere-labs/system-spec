@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/biosphere-labs/system-spec/main/schema/quality-scenario.schema.json",
+  "title": "Quality-attribute scenario (SEI)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "characteristic",
+    "source",
+    "stimulus",
+    "environment",
+    "artifact",
+    "response",
+    "measure"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^QS-[0-9]+$"
+    },
+    "characteristic": {
+      "enum": [
+        "functional-suitability",
+        "performance-efficiency",
+        "compatibility",
+        "interaction-capability",
+        "reliability",
+        "security",
+        "maintainability",
+        "flexibility",
+        "safety"
+      ]
+    },
+    "subcharacteristic": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "stimulus": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "string",
+      "description": "An externally visible part: a screen, operation, message or the whole system."
+    },
+    "response": {
+      "type": "string"
+    },
+    "measure": {
+      "type": "object",
+      "required": [
+        "metric",
+        "threshold",
+        "unit"
+      ],
+      "properties": {
+        "metric": {
+          "type": "string"
+        },
+        "threshold": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "percentile": {
+          "type": "number"
+        }
+      },
+      "x-fill": {
+        "source": "requester material, comparable products, research",
+        "method": "Turn every adjective (fast, secure, reliable) into a number a test can check.",
+        "doneWhen": "A test can pass or fail on it with no judgement."
+      }
+    },
+    "slo": {
+      "type": "string",
+      "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+      }
+    }
+  }
+}

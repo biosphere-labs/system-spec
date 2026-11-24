@@ -1,0 +1,4 @@
+asvs: { version: "5.0", level: 2 }
+wcag: { version: "2.2", level: AA }
+regulations: []
+notApplicable: []   # each entry names a requirement ID and a decision

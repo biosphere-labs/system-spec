@@ -1,0 +1,12 @@
+# schema/product-context.schema.json
+purpose: The problem, and why it is worth solving. Quote the requester.
+scope:
+  in: []
+  out: []
+category: ""
+stakeholders: []
+users: []
+environment: ""
+constraints: []
+comparableProducts: []
+differentiators: []

@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/biosphere-labs/system-spec/main/schema/external-system.schema.json",
+  "title": "Outside system",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "provides",
+    "contract",
+    "failureModes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EXT-[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "provides": {
+      "type": "string"
+    },
+    "contract": {
+      "type": "string",
+      "description": "Path under external/contracts/ (OpenAPI or AsyncAPI)."
+    },
+    "limits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "value"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "rate",
+              "size",
+              "availability",
+              "latency",
+              "cost"
+            ]
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "failureModes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "when",
+          "requiredBehaviour",
+          "acceptance"
+        ],
+        "properties": {
+          "when": {
+            "enum": [
+              "unavailable",
+              "slow",
+              "error",
+              "invalid-response",
+              "rate-limited"
+            ]
+          },
+          "requiredBehaviour": {
+            "type": "string"
+          },
+          "acceptance": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+            }
+          }
+        }
+      },
+      "x-fill": {
+        "source": "the contract, the system's limits, the use cases that call it",
+        "method": "For each way it can fail, decide what the user sees and what the system does.",
+        "dependsOn": [
+          "contract"
+        ],
+        "doneWhen": "Every failure kind is listed with behaviour and a scenario, or a reason it cannot occur."
+      }
+    }
+  }
+}

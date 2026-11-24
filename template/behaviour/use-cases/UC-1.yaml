@@ -1,0 +1,21 @@
+# schema/use-case.schema.json
+id: UC-1
+title: View an item
+primaryActor: ROLE-user
+goal: See the details of an item they own.
+level: user-goal
+stakeholders:
+  - { who: Owner, interest: Sees only their own items, and sees them correctly. }
+preconditions: [The user is signed in.]
+guarantees:
+  minimal: [No one sees an item they do not own.]
+  success: [The item is shown with all its fields.]
+trigger: The user opens an item.
+mainScenario:
+  - n: 1
+    actor: ROLE-user
+    action: Opens the item.
+    refs: [ACT-view-item]
+    extensions:
+      - { id: UC-1.1a, condition: The item does not belong to the user., handling: [The system shows "not found"., The system does not reveal that the item exists.], endsWith: failure }
+sources: ["Replace with a quoted passage or ADR-nnnn."]

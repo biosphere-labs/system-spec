@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/biosphere-labs/system-spec/main/schema/manifest.schema.json",
+  "title": "System Spec bundle manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "specVersion",
+    "system",
+    "files",
+    "openQuestions"
+  ],
+  "properties": {
+    "specVersion": {
+      "const": "0.1"
+    },
+    "system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "summary"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string",
+          "x-fill": {
+            "source": "requester material, product/context.yaml",
+            "method": "One sentence: what the system lets whom do.",
+            "dependsOn": [
+              "product/context.yaml"
+            ],
+            "doneWhen": "A reader who knows nothing else can say who it is for and what it does."
+          }
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "layer",
+          "format"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "layer": {
+            "anyOf": [
+              {
+                "enum": [
+                  "roles",
+                  "behaviour",
+                  "domain",
+                  "interfaces",
+                  "lifecycles",
+                  "quality",
+                  "safety",
+                  "external",
+                  "decisions",
+                  "product",
+                  "principles"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^x-[a-z0-9-]+$"
+              }
+            ]
+          },
+          "format": {
+            "anyOf": [
+              {
+                "enum": [
+                  "cedar-schema",
+                  "cedar-policies",
+                  "use-case",
+                  "gherkin",
+                  "story",
+                  "json-schema-2020-12",
+                  "alloy-6",
+                  "glossary",
+                  "ifml-1.0",
+                  "design-tokens",
+                  "openapi-3.1",
+                  "asyncapi-3",
+                  "scxml-1.0",
+                  "quality-scenario",
+                  "openslo-v1",
+                  "safety-profile",
+                  "otm",
+                  "external-system",
+                  "structurizr-dsl",
+                  "madr-4",
+                  "product-context",
+                  "engineering-principles"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^x-[a-z0-9-]+$",
+                "description": "A format added by an extension (docs/extending.md)."
+              }
+            ]
+          },
+          "formatVersion": {
+            "type": "string"
+          }
+        }
+      },
+      "x-fill": {
+        "source": "the bundle folder",
+        "method": "List every file; never list a file that does not exist.",
+        "doneWhen": "Readiness rule 1 passes."
+      }
+    },
+    "openQuestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "question",
+          "blocks"
+        ],
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+            }
+          },
+          "suggestedSource": {
+            "type": "string"
+          }
+        }
+      },
+      "x-fill": {
+        "source": "every authoring step",
+        "method": "Record any question that cannot be answered from evidence, instead of guessing.",
+        "doneWhen": "Empty. A bundle with open questions is not ready."
+      }
+    },
+    "extensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "url"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^x-[a-z0-9-]+$"
+          },
+          "version": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Extensions this bundle uses. See docs/extending.md."
+    }
+  }
+}

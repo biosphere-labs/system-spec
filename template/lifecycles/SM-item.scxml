@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" name="SM-item" initial="draft">
+  <state id="draft">
+    <transition event="publish" target="published"/>
+  </state>
+  <state id="published">
+    <transition event="archive" target="archived"/>
+  </state>
+  <final id="archived"/>
+</scxml>

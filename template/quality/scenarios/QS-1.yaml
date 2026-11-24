@@ -1,0 +1,9 @@
+# schema/quality-scenario.schema.json
+id: QS-1
+characteristic: performance-efficiency
+source: A signed-in user
+stimulus: Opens an item
+environment: Normal load
+artifact: The item screen
+response: The item is shown
+measure: { metric: time to show the item, threshold: 300, unit: ms, percentile: 95 }

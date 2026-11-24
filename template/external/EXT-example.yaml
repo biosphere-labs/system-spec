@@ -1,0 +1,7 @@
+# schema/external-system.schema.json
+id: EXT-example
+name: Example payment provider
+provides: Card payments
+contract: external/contracts/example.openapi.yaml
+failureModes:
+  - { when: unavailable, requiredBehaviour: The order stays unpaid and the user is told to try again later., acceptance: [] }

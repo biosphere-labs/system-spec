@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/biosphere-labs/system-spec/main/schema/use-case.schema.json",
+  "title": "Fully dressed use case (after Cockburn)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "primaryActor",
+    "goal",
+    "stakeholders",
+    "preconditions",
+    "guarantees",
+    "trigger",
+    "mainScenario",
+    "sources"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^UC-[0-9]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "primaryActor": {
+      "type": "string",
+      "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$",
+      "x-fill": {
+        "source": "roles/schema.cedarschema",
+        "method": "Name the role whose goal this is.",
+        "dependsOn": [
+          "roles"
+        ],
+        "doneWhen": "Resolves to a ROLE- id."
+      }
+    },
+    "goal": {
+      "type": "string"
+    },
+    "level": {
+      "enum": [
+        "summary",
+        "user-goal",
+        "subfunction"
+      ]
+    },
+    "stakeholders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "who",
+          "interest"
+        ],
+        "properties": {
+          "who": {
+            "type": "string"
+          },
+          "interest": {
+            "type": "string"
+          }
+        }
+      },
+      "x-fill": {
+        "source": "product/context.yaml stakeholders",
+        "method": "For each stakeholder, ask what they need protected or delivered by this use case.",
+        "dependsOn": [
+          "product"
+        ],
+        "doneWhen": "Every stakeholder in product context is either listed or judged unaffected."
+      }
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "guarantees": {
+      "type": "object",
+      "required": [
+        "minimal",
+        "success"
+      ],
+      "properties": {
+        "minimal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "success": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-fill": {
+        "source": "stakeholder interests",
+        "method": "Minimal: what must be true however the use case ends. Success: what is true when the goal is met.",
+        "dependsOn": [
+          "stakeholders"
+        ],
+        "doneWhen": "Each stakeholder interest is protected by a guarantee."
+      }
+    },
+    "trigger": {
+      "type": "string"
+    },
+    "mainScenario": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/step"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "x-fill": {
+        "source": "evidence",
+        "method": "Quote the passages or name the decisions this use case rests on.",
+        "doneWhen": "Readiness rule 11 passes for every step."
+      }
+    }
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n",
+        "actor",
+        "action",
+        "extensions"
+      ],
+      "properties": {
+        "n": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "actor": {
+          "type": "string",
+          "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+        },
+        "action": {
+          "type": "string"
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+          }
+        },
+        "extensions": {
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "condition",
+                  "handling"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^UC-[0-9]+\\.[0-9]+[a-z]$"
+                  },
+                  "condition": {
+                    "type": "string"
+                  },
+                  "handling": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "endsWith": {
+                    "enum": [
+                      "rejoin",
+                      "success",
+                      "failure"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "none-identified"
+              ],
+              "properties": {
+                "none-identified": {
+                  "type": "string",
+                  "description": "Why nothing can go wrong at this step."
+                }
+              }
+            }
+          ],
+          "x-fill": {
+            "source": "the step itself, the domain invariants, outside systems, permissions",
+            "method": "Ask: what if the input is invalid, the actor lacks permission, an outside system fails, the data changed meanwhile, the actor gives up?",
+            "dependsOn": [
+              "domain",
+              "external",
+              "roles"
+            ],
+            "doneWhen": "Every question has an extension or the reason it cannot happen."
+          }
+        }
+      }
+    }
+  }
+}

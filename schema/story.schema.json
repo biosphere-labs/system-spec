@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/biosphere-labs/system-spec/main/schema/story.schema.json",
+  "title": "Story: a slice of delivery",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "asA",
+    "iWant",
+    "soThat",
+    "delivers",
+    "acceptance"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^ST-[0-9]+$"
+    },
+    "asA": {
+      "type": "string",
+      "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+    },
+    "iWant": {
+      "type": "string"
+    },
+    "soThat": {
+      "type": "string"
+    },
+    "delivers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^UC-[0-9]+\\.[0-9]+[a-z]?$"
+      },
+      "x-fill": {
+        "source": "behaviour/use-cases",
+        "method": "Choose steps and extensions that can be delivered and tested together.",
+        "dependsOn": [
+          "behaviour/use-cases"
+        ],
+        "doneWhen": "Readiness rule 5: every step is delivered by exactly one story."
+      }
+    },
+    "acceptance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^(ROLE|ACT|POL|UC|SC|ST|ENT|INV|TERM|SCR|OP|MSG|SM|QS|SLO|THR|EXT|ADR)-[A-Za-z0-9._/-]+$"
+      },
+      "x-fill": {
+        "source": "behaviour/features and the coverage units of the delivered steps",
+        "method": "List every scenario, example and quality scenario that proves the delivered steps.",
+        "dependsOn": [
+          "delivers"
+        ],
+        "doneWhen": "Every coverage unit reached by the delivered steps is listed."
+      }
+    },
+    "dependsOn": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^ST-[0-9]+$"
+      }
+    }
+  }
+}
